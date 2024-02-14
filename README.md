@@ -1,26 +1,57 @@
 # yandex-gpt [![Build Status](https://secure.travis-ci.org//yandex-gpt-node.png?branch=master)](http://travis-ci.org//yandex-gpt-node)
 
-Эта библиотека обеспечивает удобный доступ к Н�Yandex-gpt из Node.js
+This library provides convenient access to YandexGPT from Node.js
 
 ## Getting Started
-Install the module with: `npm install yandex-gpt`
+Install the module with: `npm install yandex-gpt-node`
 
+### Import
+
+from:
 ```javascript
-var yandex_gpt = require('yandex-gpt');
-yandex_gpt.awesome(); // "awesome"
+import { YandexGPT } from 'yandex-gpt-node';
 ```
 
-## Documentation
-_(Coming soon)_
+require:
+```javascript
+const YandexGPT = require('yandex-gpt-node').YandexGPT;
+```
 
-## Examples
-_(Coming soon)_
+### Start
 
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+Creating an Instance of a Class.
+[quickstart](https://cloud.yandex.ru/ru/docs/yandexgpt/quickstart)
+/ 
+[apiKey](https://cloud.yandex.ru/ru/docs/iam/operations/api-key/create)
 
-## Release History
-_(Nothing yet)_
+```javascript
+const client = new YandexGPT(apiKey, folderId);
+await client.createToken();
+```
+
+### Use
+
+
+```javascript
+const res = await client.generateText({
+	modelUri: `gpt://${folderId}/yandexgpt-lite`,
+	completionOptions: {
+		stream: false,
+		"temperature": 0.6,
+		"maxTokens": "100",
+	},
+	messages: [
+		{
+			role: Role.SYSTEM,
+			text: "You are a smart assistant",
+		},
+		{
+			role: Role.USER,
+			text,
+		},
+	],
+});
+```
 
 ## License
 Copyright (c) 2024 T0R0NT0T0KY0  
