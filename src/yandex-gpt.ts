@@ -30,7 +30,7 @@ export class YandexGPT {
 
 		const response = await this.post<IGenerateTextResponse>(path, data, data.completionOptions.stream);
 
-		response.data;
+		return response.data;
 	}
 
 	public async tokenize(data: ITokenizeRequest) {
@@ -38,7 +38,7 @@ export class YandexGPT {
 
 		const response = await this.post<ITokenizeResponse>(path, data);
 
-		response.data;
+		return response.data;
 	}
 
 	public async tokenizeCompletion(data: ITokenizeCompletionRequest) {
@@ -46,7 +46,7 @@ export class YandexGPT {
 
 		const response = await this.post<ITokenizeCompletionResponse>(path, data);
 
-		response.data;
+		return response.data;
 	}
 
 	public async textEmbedding(data: ITextEmbeddingRequest) {
@@ -54,6 +54,6 @@ export class YandexGPT {
 
 		const response = await this.post<ITextEmbeddingResponse>(path, data);
 
-		response.data;
+		return response.data;
 	}
 }
