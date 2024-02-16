@@ -1,23 +1,23 @@
-export type ShortYandexGPTError = {
+export class ShortYandexGPTError {
 	/**
 	 * Error message
 	 */
-	error: number;
+	error!: number;
 
 	/**
 	 * error code
 	 * @example 3
 	 */
-	code: number;
+	code!: number;
 
 	/**
 	 * Error message
 	 * eq error
 	 */
-	message: string;
+	message!: string;
 
 	/**
 	 * xd
 	 */
-	details: unknown[];
+	details!: unknown[];
 }

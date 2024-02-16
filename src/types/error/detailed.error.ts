@@ -1,5 +1,5 @@
-export type DetailedYandexGPTError = {
-	error: DetailedError;
+export class DetailedYandexGPTError {
+	error!: DetailedError;
 }
 
 export type DetailedError = {

@@ -34,7 +34,7 @@ export class YandexGPT {
 		});
 	}
 
-	public async generateText(data: IGenerateTextRequest): Promise<IResultResponse<IGenerateTextResponse> | DetailedYandexGPTError> {
+	public async generateText(data: IGenerateTextRequest): Promise<IResultResponse<IGenerateTextResponse>> {
 		const path = "completion";
 
 		try {
@@ -42,21 +42,11 @@ export class YandexGPT {
 
 			return response.data;
 		} catch (error) {
-			return this.handleDetailedError(error);
+			this.handleError(error);
 		}
 	}
 
-	private handleDetailedError(error: unknown): DetailedYandexGPTError {
-		const axiosError = error as AxiosError<DetailedYandexGPTError>;
-
-		if (typeof axiosError?.response?.data?.error === "object") {
-			return axiosError.response.data;
-		}
-
-		throw error;
-	}
-
-	public async tokenize(data: ITokenizeRequest): Promise<ITokenizeResponse | ShortYandexGPTError> {
+	public async tokenize(data: ITokenizeRequest): Promise<ITokenizeResponse> {
 		const path = "tokenize";
 
 		try {
@@ -64,11 +54,11 @@ export class YandexGPT {
 
 			return response.data;
 		} catch (error) {
-			return this.handleShortError(error);
+			this.handleError(error);
 		}
 	}
 
-	public async tokenizeCompletion(data: ITokenizeCompletionRequest): Promise<ITokenizeCompletionResponse | ShortYandexGPTError> {
+	public async tokenizeCompletion(data: ITokenizeCompletionRequest): Promise<ITokenizeCompletionResponse> {
 		const path = "tokenizeCompletion";
 
 		try {
@@ -76,11 +66,11 @@ export class YandexGPT {
 
 			return response.data;
 		} catch (error) {
-			return this.handleShortError(error);
+			this.handleError(error);
 		}
 	}
 
-	public async textEmbedding(data: ITextEmbeddingRequest): Promise<ITextEmbeddingResponse | ShortYandexGPTError> {
+	public async textEmbedding(data: ITextEmbeddingRequest): Promise<ITextEmbeddingResponse> {
 		const path = "textEmbedding";
 
 		try {
@@ -88,15 +78,19 @@ export class YandexGPT {
 
 			return response.data;
 		} catch (error) {
-			return this.handleShortError(error);
+			this.handleError(error);
 		}
 	}
 
-	private handleShortError(error: unknown): ShortYandexGPTError {
-		const axiosError = error as AxiosError<ShortYandexGPTError>;
+	private handleError(error: unknown): never {
+		const axiosError = error as AxiosError<ShortYandexGPTError | DetailedYandexGPTError>;
 
-		if (axiosError?.response?.data?.code) {
-			return axiosError.response.data;
+		if (typeof axiosError?.response?.data?.error === "object") {
+			throw axiosError.response.data.error;
+		}
+
+		if (typeof axiosError?.response?.data === "object") {
+			throw axiosError.response.data;
 		}
 
 		throw error;
