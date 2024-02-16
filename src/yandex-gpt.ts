@@ -56,4 +56,8 @@ export class YandexGPT {
 
 		return response.data;
 	}
+
+	getFolderId(): string {
+		return this.FOLDER_ID;
+	}
 }
