@@ -13,8 +13,8 @@
     "url": "https://github.com/T0R0NT0T0KY0/yandex-gpt-node"
   },
   "license": "MIT",
-  "main": "./dist/yandex-gpt.js",
-  "source": "./src/yandex-gpt.ts",
+  "main": "./dist/index.js",
+  "source": "./src/index.ts",
   "type": "commonjs",
   "scripts": {
     "build": "tsc",

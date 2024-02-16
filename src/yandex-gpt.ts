@@ -1,9 +1,15 @@
 import axios, { AxiosResponse } from "axios";
-import { IGenerateTextRequest, IGenerateTextResponse } from "./types/interfaces/generate-text.interface";
-import { IResultResponse } from "./types/interfaces/result-response.interface";
-import { ITextEmbeddingRequest, ITextEmbeddingResponse } from "./types/interfaces/text-embedding.interface";
-import { ITokenizeCompletionRequest, ITokenizeCompletionResponse } from "./types/interfaces/tokenize-completion.interface";
-import { ITokenizeRequest, ITokenizeResponse } from "./types/interfaces/tokenize.interface";
+import {
+	IGenerateTextRequest,
+	IGenerateTextResponse,
+	IResultResponse,
+	ITextEmbeddingRequest,
+	ITextEmbeddingResponse,
+	ITokenizeCompletionRequest,
+	ITokenizeCompletionResponse,
+	ITokenizeRequest,
+	ITokenizeResponse,
+} from "./types";
 
 export class YandexGPT {
 	private readonly API_KEY: string;
@@ -28,7 +34,6 @@ export class YandexGPT {
 
 	/**
 	 * @throws {DetailedYandexGPTError}
-	 * @param data {IGenerateTextRequest}
 	 */
 	public async generateText(data: IGenerateTextRequest): Promise<IResultResponse<IGenerateTextResponse>> {
 		const path = "completion";
