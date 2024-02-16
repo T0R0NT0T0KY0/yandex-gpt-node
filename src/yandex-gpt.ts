@@ -26,7 +26,11 @@ export class YandexGPT {
 		});
 	}
 
-	public async generateText(data: IGenerateTextRequest) {
+	/**
+	 * @throws {DetailedYandexGPTError}
+	 * @param data {IGenerateTextRequest}
+	 */
+	public async generateText(data: IGenerateTextRequest): Promise<IResultResponse<IGenerateTextResponse>> {
 		const path = "completion";
 
 		const response = await this.post<IResultResponse<IGenerateTextResponse>>(path, data, data.completionOptions.stream);
@@ -34,7 +38,10 @@ export class YandexGPT {
 		return response.data;
 	}
 
-	public async tokenize(data: ITokenizeRequest) {
+	/**
+	 * @throws {ShortYandexGPTError}
+	 */
+	public async tokenize(data: ITokenizeRequest): Promise<ITokenizeResponse> {
 		const path = "tokenize";
 
 		const response = await this.post<ITokenizeResponse>(path, data);
@@ -42,7 +49,10 @@ export class YandexGPT {
 		return response.data;
 	}
 
-	public async tokenizeCompletion(data: ITokenizeCompletionRequest) {
+	/**
+	 * @throws {ShortYandexGPTError}
+	 */
+	public async tokenizeCompletion(data: ITokenizeCompletionRequest): Promise<ITokenizeCompletionResponse> {
 		const path = "tokenizeCompletion";
 
 		const response = await this.post<ITokenizeCompletionResponse>(path, data);
@@ -50,7 +60,10 @@ export class YandexGPT {
 		return response.data;
 	}
 
-	public async textEmbedding(data: ITextEmbeddingRequest) {
+	/**
+	 * @throws {ShortYandexGPTError}
+	 */
+	public async textEmbedding(data: ITextEmbeddingRequest): Promise<ITextEmbeddingResponse> {
 		const path = "textEmbedding";
 
 		const response = await this.post<ITextEmbeddingResponse>(path, data);
