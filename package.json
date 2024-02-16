@@ -1,7 +1,7 @@
 {
   "name": "yandex-gpt-node",
   "description": "This library provides convenient access to YandexGPT from Node.js",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "homepage": "https://github.com/T0R0NT0T0KY0/yandex-gpt-node",
   "author": {
     "name": "T0R0NT0T0KY0",
