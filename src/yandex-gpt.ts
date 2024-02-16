@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
 import {
 	IGenerateTextRequest,
 	IGenerateTextResponse,
@@ -9,6 +9,8 @@ import {
 	ITokenizeCompletionResponse,
 	ITokenizeRequest,
 	ITokenizeResponse,
+	DetailedYandexGPTError,
+	ShortYandexGPTError,
 } from "./types";
 
 export class YandexGPT {
@@ -32,48 +34,72 @@ export class YandexGPT {
 		});
 	}
 
-	/**
-	 * @throws {DetailedYandexGPTError}
-	 */
-	public async generateText(data: IGenerateTextRequest): Promise<IResultResponse<IGenerateTextResponse>> {
+	public async generateText(data: IGenerateTextRequest): Promise<IResultResponse<IGenerateTextResponse> | DetailedYandexGPTError> {
 		const path = "completion";
 
-		const response = await this.post<IResultResponse<IGenerateTextResponse>>(path, data, data.completionOptions.stream);
+		try {
+			const response = await this.post<IResultResponse<IGenerateTextResponse>>(path, data, data.completionOptions.stream);
 
-		return response.data;
+			return response.data;
+		} catch (error) {
+			return this.handleDetailedError(error);
+		}
 	}
 
-	/**
-	 * @throws {ShortYandexGPTError}
-	 */
-	public async tokenize(data: ITokenizeRequest): Promise<ITokenizeResponse> {
+	private handleDetailedError(error: unknown): DetailedYandexGPTError {
+		const axiosError = error as AxiosError<DetailedYandexGPTError>;
+
+		if (typeof axiosError?.response?.data?.error === "object") {
+			return axiosError.response.data;
+		}
+
+		throw error;
+	}
+
+	public async tokenize(data: ITokenizeRequest): Promise<ITokenizeResponse | ShortYandexGPTError> {
 		const path = "tokenize";
 
-		const response = await this.post<ITokenizeResponse>(path, data);
+		try {
+			const response = await this.post<ITokenizeResponse>(path, data);
 
-		return response.data;
+			return response.data;
+		} catch (error) {
+			return this.handleShortError(error);
+		}
 	}
 
-	/**
-	 * @throws {ShortYandexGPTError}
-	 */
-	public async tokenizeCompletion(data: ITokenizeCompletionRequest): Promise<ITokenizeCompletionResponse> {
+	public async tokenizeCompletion(data: ITokenizeCompletionRequest): Promise<ITokenizeCompletionResponse | ShortYandexGPTError> {
 		const path = "tokenizeCompletion";
 
-		const response = await this.post<ITokenizeCompletionResponse>(path, data);
+		try {
+			const response = await this.post<ITokenizeCompletionResponse>(path, data);
 
-		return response.data;
+			return response.data;
+		} catch (error) {
+			return this.handleShortError(error);
+		}
 	}
 
-	/**
-	 * @throws {ShortYandexGPTError}
-	 */
-	public async textEmbedding(data: ITextEmbeddingRequest): Promise<ITextEmbeddingResponse> {
+	public async textEmbedding(data: ITextEmbeddingRequest): Promise<ITextEmbeddingResponse | ShortYandexGPTError> {
 		const path = "textEmbedding";
 
-		const response = await this.post<ITextEmbeddingResponse>(path, data);
+		try {
+			const response = await this.post<ITextEmbeddingResponse>(path, data);
 
-		return response.data;
+			return response.data;
+		} catch (error) {
+			return this.handleShortError(error);
+		}
+	}
+
+	private handleShortError(error: unknown): ShortYandexGPTError {
+		const axiosError = error as AxiosError<ShortYandexGPTError>;
+
+		if (axiosError?.response?.data?.code) {
+			return axiosError.response.data;
+		}
+
+		throw error;
 	}
 
 	getFolderId(): string {
