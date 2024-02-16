@@ -1,4 +1,4 @@
-import { AlternativeStatus } from "./alternative-status.enum";
+import { AlternativeStatus } from "./enums/alternative-status.enum";
 import { Message } from "./message";
 
 

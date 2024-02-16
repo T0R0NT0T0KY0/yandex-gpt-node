@@ -1,7 +1,7 @@
-import { Alternative } from "./alternative";
-import { CompletionOptions } from "./completion-options";
-import { Message } from "./message";
-import { Usage } from "./usage";
+import { Alternative } from "../alternative";
+import { CompletionOptions } from "../completion-options";
+import { Message } from "../message";
+import { Usage } from "../usage";
 
 export interface IGenerateTextRequest {
 	/**

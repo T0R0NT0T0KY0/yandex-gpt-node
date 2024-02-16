@@ -1,5 +1,5 @@
-import { CompletionOptions } from "./completion-options";
-import { Message } from "./message";
+import { CompletionOptions } from "../completion-options";
+import { Message } from "../message";
 
 export interface ITokenizeCompletionRequest {
 	/**
