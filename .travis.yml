@@ -1,0 +1,8 @@
+before_install:
+  - npm install -g pnpm
+install:
+  - pnpm install
+language: node_js
+node_js:
+  - 20
+script: pnpm build
