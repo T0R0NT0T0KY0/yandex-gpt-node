@@ -1,4 +1,4 @@
-# yandex-gpt [![Build Status](https://secure.travis-ci.org//yandex-gpt-node.png?branch=prod)](http://travis-ci.org//yandex-gpt-node)
+# yandex-gpt [![Build Status](https://app.travis-ci.com/T0R0NT0T0KY0/yandex-gpt-node.svg?token=KjJ7tdPbCqdxed7ZbGxi&branch=prod)](https://app.travis-ci.com/T0R0NT0T0KY0/yandex-gpt-node)
 
 This library provides convenient access to YandexGPT from Node.js
 
